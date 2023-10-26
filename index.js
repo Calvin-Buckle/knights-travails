@@ -1,81 +1,88 @@
-function knight(x,y){
-    let array = []
-    array.push(x,y)
-    return array
-    
+class Board{
+constructor(array){
+  this.array = array
+}
+
+boardGenerator(value){
+  let array = [];
+for(let x = 0; x < value;x++){
+ let row = [];
+ for(let y = 0; y < value;y++){
+  row.push([x,y])
+ }
+ array.push(row)
+}
+return array
+}
+  
+
+
 }
 
 
-function calculateChildren(x,y,array){
-  let childArray= []
-  let resultX = array[0] + x;
-  let resultY = array[1] + y;
-  if(resultX < 0 || resultY < 0)return 'no child'
 
-  childArray.push(resultX,resultY)
-  console.log()
-return (childArray)
-}
 
 class Node{
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-        this.child1 = calculateChildren(-1,2,knight(x,y));
-        this.child2 = calculateChildren(-2,1,knight(x,y))
-        this.child3 = calculateChildren(-2,-1,knight(x,y))
-        this.child4 = calculateChildren(-1,-2,knight(x,y))
-        this.child5 = calculateChildren(1,-2,knight(x,y))
-        this.child6 = calculateChildren(2,-1,knight(x,y))
-        this.child7 = calculateChildren(2,1,knight(x,y))
-        this.child8 = calculateChildren(1,2,knight(x,y))
-        
-    }
+  constructor(knight){
+    this.knightX = knight[0];
+    this.knightY = knight[1];
+    this.child1 = null
+    this.child2 = null
+    this.child3 = null
+    this.child4 = null
+    this.child5 = null
+    this.child6 = null
+    this.child7 = null
+    this.child8 = null
+  }
 
-  
 }
-class GameBoard{
-    constructor(n) {
-        this.n = n;
-        this.grid = this.generateArray(n);
-      }
 
-    generateArray(n) {
-        const arr = [];
-        const result = []
-        for (let i = 0; i <= n; i++) {
-          for (let j = 0; j <= n; j++) {
-            arr.push([i, j]);
-          }
-          
-        }
-        result.push(arr)
-        return result;
-      }
-
-    
-    }
+function knightPosition(x,y){
+  let array = [x,y]
+  let knight = new Node(array)
+  possibleMoves(knight)
+  return knight
+}
 
 
+function possibleMoves(knight){
 
-  
-  const n = 10;
-  
-  let newthing = new GameBoard(n);
-  
-  console.log(newthing.grid);
+let move1 = calculator([-1,2],knight);
+let move2 = calculator([-2,1],knight);
+let move3 = calculator([-2,-1],knight);
+let move4 = calculator([-1,-2],knight);
+let move5 = calculator([1,-2],knight);
+let move6 = calculator([2,-1],knight);
+let move7 = calculator([2,1],knight);
+let move8 = calculator([1,2],knight);
+knight.child1 = move1
+knight.child2 = move2
+knight.child3 = move3
+knight.child4 = move4
+knight.child5 = move5
+knight.child6 = move6
+knight.child7 = move7
+knight.child8 = move8
+
+}
+
+
+function calculator(array, knight){
+  let knightX = knight.knightX;
+  let knightY = knight.knightY;
+  let resultX = array[0] + knightX;
+  let resultY = array[1] + knightY;
+  return [resultX,resultY]
+}
 
 
 
 
+ console.log(knightPosition(3,3))
 
 
 
 
-
-//chessboard
-//knight
-//board locations
-//possible moves
-//nodes
-//children
+ let newGame = new Board
+ console.log(newGame.boardGenerator(8))
